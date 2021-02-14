@@ -1,0 +1,364 @@
+
+860MKII.elf:     file format elf32-avr
+
+Sections:
+Idx Name          Size      VMA       LMA       File off  Algn
+  0 .data         00000000  00803f80  00803f80  000001fa  2**0
+                  CONTENTS, ALLOC, LOAD, DATA
+  1 .text         000001a6  00000000  00000000  00000054  2**1
+                  CONTENTS, ALLOC, LOAD, READONLY, CODE
+  2 .comment      00000030  00000000  00000000  000001fa  2**0
+                  CONTENTS, READONLY
+  3 .note.gnu.avr.deviceinfo 0000003c  00000000  00000000  0000022c  2**2
+                  CONTENTS, READONLY
+  4 .debug_aranges 00000080  00000000  00000000  00000268  2**3
+                  CONTENTS, READONLY, DEBUGGING
+  5 .debug_info   000018bb  00000000  00000000  000002e8  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  6 .debug_abbrev 0000128c  00000000  00000000  00001ba3  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  7 .debug_line   000005a4  00000000  00000000  00002e2f  2**0
+                  CONTENTS, READONLY, DEBUGGING
+  8 .debug_frame  00000034  00000000  00000000  000033d4  2**2
+                  CONTENTS, READONLY, DEBUGGING
+  9 .debug_str    00000b28  00000000  00000000  00003408  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 10 .debug_loc    00000256  00000000  00000000  00003f30  2**0
+                  CONTENTS, READONLY, DEBUGGING
+ 11 .debug_ranges 00000010  00000000  00000000  00004186  2**0
+                  CONTENTS, READONLY, DEBUGGING
+
+Disassembly of section .text:
+
+00000000 <__vectors>:
+   0:	19 c0       	rjmp	.+50     	; 0x34 <__ctors_end>
+   2:	20 c0       	rjmp	.+64     	; 0x44 <__bad_interrupt>
+   4:	1f c0       	rjmp	.+62     	; 0x44 <__bad_interrupt>
+   6:	1e c0       	rjmp	.+60     	; 0x44 <__bad_interrupt>
+   8:	1d c0       	rjmp	.+58     	; 0x44 <__bad_interrupt>
+   a:	1c c0       	rjmp	.+56     	; 0x44 <__bad_interrupt>
+   c:	1b c0       	rjmp	.+54     	; 0x44 <__bad_interrupt>
+   e:	1a c0       	rjmp	.+52     	; 0x44 <__bad_interrupt>
+  10:	19 c0       	rjmp	.+50     	; 0x44 <__bad_interrupt>
+  12:	18 c0       	rjmp	.+48     	; 0x44 <__bad_interrupt>
+  14:	17 c0       	rjmp	.+46     	; 0x44 <__bad_interrupt>
+  16:	16 c0       	rjmp	.+44     	; 0x44 <__bad_interrupt>
+  18:	15 c0       	rjmp	.+42     	; 0x44 <__bad_interrupt>
+  1a:	14 c0       	rjmp	.+40     	; 0x44 <__bad_interrupt>
+  1c:	13 c0       	rjmp	.+38     	; 0x44 <__bad_interrupt>
+  1e:	12 c0       	rjmp	.+36     	; 0x44 <__bad_interrupt>
+  20:	11 c0       	rjmp	.+34     	; 0x44 <__bad_interrupt>
+  22:	10 c0       	rjmp	.+32     	; 0x44 <__bad_interrupt>
+  24:	0f c0       	rjmp	.+30     	; 0x44 <__bad_interrupt>
+  26:	0e c0       	rjmp	.+28     	; 0x44 <__bad_interrupt>
+  28:	0d c0       	rjmp	.+26     	; 0x44 <__bad_interrupt>
+  2a:	0c c0       	rjmp	.+24     	; 0x44 <__bad_interrupt>
+  2c:	0b c0       	rjmp	.+22     	; 0x44 <__bad_interrupt>
+  2e:	0a c0       	rjmp	.+20     	; 0x44 <__bad_interrupt>
+  30:	09 c0       	rjmp	.+18     	; 0x44 <__bad_interrupt>
+  32:	08 c0       	rjmp	.+16     	; 0x44 <__bad_interrupt>
+
+00000034 <__ctors_end>:
+  34:	11 24       	eor	r1, r1
+  36:	1f be       	out	0x3f, r1	; 63
+  38:	cf ef       	ldi	r28, 0xFF	; 255
+  3a:	cd bf       	out	0x3d, r28	; 61
+  3c:	df e3       	ldi	r29, 0x3F	; 63
+  3e:	de bf       	out	0x3e, r29	; 62
+  40:	02 d0       	rcall	.+4      	; 0x46 <main>
+  42:	af c0       	rjmp	.+350    	; 0x1a2 <_exit>
+
+00000044 <__bad_interrupt>:
+  44:	dd cf       	rjmp	.-70     	; 0x0 <__vectors>
+
+00000046 <main>:
+#define ADDR_1 61
+#define ADDR_2 62
+#define ADDR_3 63
+
+int main(void)
+{
+  46:	cf 93       	push	r28
+  48:	df 93       	push	r29
+  4a:	00 d0       	rcall	.+0      	; 0x4c <main+0x6>
+  4c:	00 d0       	rcall	.+0      	; 0x4e <main+0x8>
+  4e:	cd b7       	in	r28, 0x3d	; 61
+  50:	de b7       	in	r29, 0x3e	; 62
+	
+	
+	PORTA.DIR = OUT_CONFIG;
+  52:	86 ec       	ldi	r24, 0xC6	; 198
+  54:	80 93 00 04 	sts	0x0400, r24	; 0x800400 <__TEXT_REGION_LENGTH__+0x700400>
+	uint8_t port_output[NUM_MODES] = {LP_24, LP_12, BP, HP};
+  58:	82 e0       	ldi	r24, 0x02	; 2
+  5a:	89 83       	std	Y+1, r24	; 0x01
+  5c:	84 e4       	ldi	r24, 0x44	; 68
+  5e:	8a 83       	std	Y+2, r24	; 0x02
+  60:	82 e8       	ldi	r24, 0x82	; 130
+  62:	8b 83       	std	Y+3, r24	; 0x03
+  64:	80 ec       	ldi	r24, 0xC0	; 192
+  66:	8c 83       	std	Y+4, r24	; 0x04
+	uint8_t previous_sw_state = 0;
+	uint8_t counter = NUM_MODES -1; //read previously stored state
+	
+	//uint8_t EEMEM saved_state_eeprom;
+	uint8_t recall_address = 0;
+	uint8_t address_01 = eeprom_read_byte(ADDR_1);
+  68:	8d e3       	ldi	r24, 0x3D	; 61
+  6a:	90 e0       	ldi	r25, 0x00	; 0
+  6c:	73 d0       	rcall	.+230    	; 0x154 <eeprom_read_byte>
+  6e:	f8 2e       	mov	r15, r24
+	uint8_t address_02 = eeprom_read_byte(ADDR_2);
+  70:	8e e3       	ldi	r24, 0x3E	; 62
+  72:	90 e0       	ldi	r25, 0x00	; 0
+  74:	6f d0       	rcall	.+222    	; 0x154 <eeprom_read_byte>
+  76:	08 2f       	mov	r16, r24
+	uint8_t address_03 = eeprom_read_byte(ADDR_3);
+  78:	8f e3       	ldi	r24, 0x3F	; 63
+  7a:	90 e0       	ldi	r25, 0x00	; 0
+  7c:	6b d0       	rcall	.+214    	; 0x154 <eeprom_read_byte>
+  7e:	18 2f       	mov	r17, r24
+	
+	if ((address_01 == address_02) || (address_01 == address_03)) {
+  80:	f0 16       	cp	r15, r16
+  82:	29 f0       	breq	.+10     	; 0x8e <main+0x48>
+  84:	f8 16       	cp	r15, r24
+  86:	21 f0       	breq	.+8      	; 0x90 <main+0x4a>
+			recall_address = address_01;	
+		} else if (address_02 == address_03) {
+  88:	08 13       	cpse	r16, r24
+  8a:	5b c0       	rjmp	.+182    	; 0x142 <main+0xfc>
+  8c:	01 c0       	rjmp	.+2      	; 0x90 <main+0x4a>
+	uint8_t address_01 = eeprom_read_byte(ADDR_1);
+	uint8_t address_02 = eeprom_read_byte(ADDR_2);
+	uint8_t address_03 = eeprom_read_byte(ADDR_3);
+	
+	if ((address_01 == address_02) || (address_01 == address_03)) {
+			recall_address = address_01;	
+  8e:	10 2f       	mov	r17, r16
+		} else if (address_02 == address_03) {
+			recall_address = address_02;
+		}
+	
+	
+	if (recall_address > MEM_END) recall_address = 0;
+  90:	1d 33       	cpi	r17, 0x3D	; 61
+  92:	08 f0       	brcs	.+2      	; 0x96 <main+0x50>
+  94:	4c c0       	rjmp	.+152    	; 0x12e <main+0xe8>
+	
+	
+	//uint8_t mem_location = eeprom_read_byte(MEM_LOC); //read last memory location
+	counter = eeprom_read_byte(recall_address); //read state value from that location
+  96:	81 2f       	mov	r24, r17
+  98:	90 e0       	ldi	r25, 0x00	; 0
+  9a:	5c d0       	rcall	.+184    	; 0x154 <eeprom_read_byte>
+  9c:	08 2f       	mov	r16, r24
+	if (counter >= NUM_MODES) counter = 0;
+  9e:	84 30       	cpi	r24, 0x04	; 4
+  a0:	08 f0       	brcs	.+2      	; 0xa4 <main+0x5e>
+  a2:	00 e0       	ldi	r16, 0x00	; 0
+	if (++recall_address > MEM_END) recall_address = 0; //increment the location, reset if > MEM_END
+  a4:	1f 5f       	subi	r17, 0xFF	; 255
+  a6:	1d 33       	cpi	r17, 0x3D	; 61
+  a8:	30 f0       	brcs	.+12     	; 0xb6 <main+0x70>
+  aa:	10 e0       	ldi	r17, 0x00	; 0
+  ac:	04 c0       	rjmp	.+8      	; 0xb6 <main+0x70>
+  ae:	11 e0       	ldi	r17, 0x01	; 1
+  b0:	02 c0       	rjmp	.+4      	; 0xb6 <main+0x70>
+	if (recall_address > MEM_END) recall_address = 0;
+	
+	
+	//uint8_t mem_location = eeprom_read_byte(MEM_LOC); //read last memory location
+	counter = eeprom_read_byte(recall_address); //read state value from that location
+	if (counter >= NUM_MODES) counter = 0;
+  b2:	00 e0       	ldi	r16, 0x00	; 0
+	if (++recall_address > MEM_END) recall_address = 0; //increment the location, reset if > MEM_END
+  b4:	11 e0       	ldi	r17, 0x01	; 1
+	eeprom_update_byte(ADDR_1,recall_address); //update new memory location
+  b6:	61 2f       	mov	r22, r17
+  b8:	8d e3       	ldi	r24, 0x3D	; 61
+  ba:	90 e0       	ldi	r25, 0x00	; 0
+  bc:	53 d0       	rcall	.+166    	; 0x164 <eeprom_update_byte>
+	eeprom_update_byte(ADDR_2, recall_address);
+  be:	61 2f       	mov	r22, r17
+  c0:	8e e3       	ldi	r24, 0x3E	; 62
+  c2:	90 e0       	ldi	r25, 0x00	; 0
+  c4:	4f d0       	rcall	.+158    	; 0x164 <eeprom_update_byte>
+	eeprom_update_byte(ADDR_3, recall_address);
+  c6:	61 2f       	mov	r22, r17
+  c8:	8f e3       	ldi	r24, 0x3F	; 63
+  ca:	90 e0       	ldi	r25, 0x00	; 0
+  cc:	4b d0       	rcall	.+150    	; 0x164 <eeprom_update_byte>
+	eeprom_update_byte(recall_address,counter); //store counter in new memory location so mode is recalled even if no changes to state are made during use
+  ce:	e1 2e       	mov	r14, r17
+  d0:	f1 2c       	mov	r15, r1
+  d2:	60 2f       	mov	r22, r16
+  d4:	c7 01       	movw	r24, r14
+  d6:	46 d0       	rcall	.+140    	; 0x164 <eeprom_update_byte>
+	
+	PORTA.OUT = (port_output[counter]);
+  d8:	fe 01       	movw	r30, r28
+  da:	e0 0f       	add	r30, r16
+  dc:	f1 1d       	adc	r31, r1
+  de:	81 81       	ldd	r24, Z+1	; 0x01
+  e0:	e0 e0       	ldi	r30, 0x00	; 0
+  e2:	f4 e0       	ldi	r31, 0x04	; 4
+  e4:	84 83       	std	Z+4, r24	; 0x04
+	current_sw_state = (PORTA.IN & (1<<SW_IN));
+  e6:	10 85       	ldd	r17, Z+8	; 0x08
+  e8:	18 70       	andi	r17, 0x08	; 8
+	current_sw_state &= previous_sw_state;
+	
+	//eeprom_read_byte()
+    while (1) 
+    {
+		current_sw_state = (PORTA.IN & (1<<SW_IN));
+  ea:	c1 2c       	mov	r12, r1
+  ec:	68 94       	set
+  ee:	dd 24       	eor	r13, r13
+  f0:	d2 f8       	bld	r13, 2
+  f2:	f6 01       	movw	r30, r12
+  f4:	80 85       	ldd	r24, Z+8	; 0x08
+  f6:	88 70       	andi	r24, 0x08	; 8
+		current_sw_state ^= previous_sw_state;
+  f8:	81 27       	eor	r24, r17
+		previous_sw_state ^= current_sw_state;
+  fa:	18 27       	eor	r17, r24
+		current_sw_state &= previous_sw_state;
+		
+		if (current_sw_state) {
+  fc:	81 23       	and	r24, r17
+  fe:	81 f0       	breq	.+32     	; 0x120 <main+0xda>
+			
+			if (++counter >= NUM_MODES) {
+ 100:	0f 5f       	subi	r16, 0xFF	; 255
+ 102:	04 30       	cpi	r16, 0x04	; 4
+ 104:	08 f0       	brcs	.+2      	; 0x108 <main+0xc2>
+				counter = 0;
+ 106:	00 e0       	ldi	r16, 0x00	; 0
+				
+			}
+			//write new state to eeprom:
+			eeprom_update_byte(recall_address,counter);
+ 108:	60 2f       	mov	r22, r16
+ 10a:	c7 01       	movw	r24, r14
+ 10c:	2b d0       	rcall	.+86     	; 0x164 <eeprom_update_byte>
+			
+			PORTA.OUT = (port_output[counter]);
+ 10e:	e1 e0       	ldi	r30, 0x01	; 1
+ 110:	f0 e0       	ldi	r31, 0x00	; 0
+ 112:	ec 0f       	add	r30, r28
+ 114:	fd 1f       	adc	r31, r29
+ 116:	e0 0f       	add	r30, r16
+ 118:	f1 1d       	adc	r31, r1
+ 11a:	80 81       	ld	r24, Z
+ 11c:	f6 01       	movw	r30, r12
+ 11e:	84 83       	std	Z+4, r24	; 0x04
+	#else
+		//round up by default
+		__ticks_dc = (uint32_t)(ceil(fabs(__tmp)));
+	#endif
+
+	__builtin_avr_delay_cycles(__ticks_dc);
+ 120:	87 e8       	ldi	r24, 0x87	; 135
+ 122:	93 e1       	ldi	r25, 0x13	; 19
+ 124:	01 97       	sbiw	r24, 0x01	; 1
+ 126:	f1 f7       	brne	.-4      	; 0x124 <main+0xde>
+ 128:	00 c0       	rjmp	.+0      	; 0x12a <main+0xe4>
+ 12a:	00 00       	nop
+ 12c:	e2 cf       	rjmp	.-60     	; 0xf2 <main+0xac>
+	
+	if (recall_address > MEM_END) recall_address = 0;
+	
+	
+	//uint8_t mem_location = eeprom_read_byte(MEM_LOC); //read last memory location
+	counter = eeprom_read_byte(recall_address); //read state value from that location
+ 12e:	80 e0       	ldi	r24, 0x00	; 0
+ 130:	90 e0       	ldi	r25, 0x00	; 0
+ 132:	10 d0       	rcall	.+32     	; 0x154 <eeprom_read_byte>
+ 134:	08 2f       	mov	r16, r24
+	if (counter >= NUM_MODES) counter = 0;
+ 136:	84 30       	cpi	r24, 0x04	; 4
+ 138:	08 f4       	brcc	.+2      	; 0x13c <main+0xf6>
+ 13a:	b9 cf       	rjmp	.-142    	; 0xae <main+0x68>
+ 13c:	00 e0       	ldi	r16, 0x00	; 0
+	if (++recall_address > MEM_END) recall_address = 0; //increment the location, reset if > MEM_END
+ 13e:	11 e0       	ldi	r17, 0x01	; 1
+ 140:	ba cf       	rjmp	.-140    	; 0xb6 <main+0x70>
+	
+	if (recall_address > MEM_END) recall_address = 0;
+	
+	
+	//uint8_t mem_location = eeprom_read_byte(MEM_LOC); //read last memory location
+	counter = eeprom_read_byte(recall_address); //read state value from that location
+ 142:	80 e0       	ldi	r24, 0x00	; 0
+ 144:	90 e0       	ldi	r25, 0x00	; 0
+ 146:	06 d0       	rcall	.+12     	; 0x154 <eeprom_read_byte>
+ 148:	08 2f       	mov	r16, r24
+	if (counter >= NUM_MODES) counter = 0;
+ 14a:	84 30       	cpi	r24, 0x04	; 4
+ 14c:	08 f0       	brcs	.+2      	; 0x150 <main+0x10a>
+ 14e:	b1 cf       	rjmp	.-158    	; 0xb2 <main+0x6c>
+	uint8_t current_sw_state = 0;
+	uint8_t previous_sw_state = 0;
+	uint8_t counter = NUM_MODES -1; //read previously stored state
+	
+	//uint8_t EEMEM saved_state_eeprom;
+	uint8_t recall_address = 0;
+ 150:	10 e0       	ldi	r17, 0x00	; 0
+ 152:	a8 cf       	rjmp	.-176    	; 0xa4 <main+0x5e>
+
+00000154 <eeprom_read_byte>:
+ 154:	03 d0       	rcall	.+6      	; 0x15c <eeprom_mapen>
+ 156:	80 81       	ld	r24, Z
+ 158:	99 27       	eor	r25, r25
+ 15a:	08 95       	ret
+
+0000015c <eeprom_mapen>:
+ 15c:	fc 01       	movw	r30, r24
+ 15e:	e0 50       	subi	r30, 0x00	; 0
+ 160:	fc 4e       	sbci	r31, 0xEC	; 236
+ 162:	08 95       	ret
+
+00000164 <eeprom_update_byte>:
+ 164:	26 2f       	mov	r18, r22
+
+00000166 <eeprom_update_r18>:
+ 166:	0e 94 ae 00 	call	0x15c	; 0x15c <eeprom_mapen>
+ 16a:	00 80       	ld	r0, Z
+ 16c:	02 16       	cp	r0, r18
+ 16e:	19 f0       	breq	.+6      	; 0x176 <eeprom_update_r18+0x10>
+ 170:	0e 94 be 00 	call	0x17c	; 0x17c <eeprom_write_r18>
+ 174:	01 97       	sbiw	r24, 0x01	; 1
+ 176:	01 97       	sbiw	r24, 0x01	; 1
+ 178:	08 95       	ret
+
+0000017a <eeprom_write_byte>:
+ 17a:	26 2f       	mov	r18, r22
+
+0000017c <eeprom_write_r18>:
+ 17c:	af 93       	push	r26
+ 17e:	bf 93       	push	r27
+ 180:	e0 e0       	ldi	r30, 0x00	; 0
+ 182:	f0 e1       	ldi	r31, 0x10	; 16
+ 184:	32 81       	ldd	r19, Z+2	; 0x02
+ 186:	31 fd       	sbrc	r19, 1
+ 188:	fd cf       	rjmp	.-6      	; 0x184 <eeprom_write_r18+0x8>
+ 18a:	dc 01       	movw	r26, r24
+ 18c:	a0 50       	subi	r26, 0x00	; 0
+ 18e:	bc 4e       	sbci	r27, 0xEC	; 236
+ 190:	2c 93       	st	X, r18
+ 192:	2d e9       	ldi	r18, 0x9D	; 157
+ 194:	24 bf       	out	0x34, r18	; 52
+ 196:	23 e0       	ldi	r18, 0x03	; 3
+ 198:	20 83       	st	Z, r18
+ 19a:	01 96       	adiw	r24, 0x01	; 1
+ 19c:	bf 91       	pop	r27
+ 19e:	af 91       	pop	r26
+ 1a0:	08 95       	ret
+
+000001a2 <_exit>:
+ 1a2:	f8 94       	cli
+
+000001a4 <__stop_program>:
+ 1a4:	ff cf       	rjmp	.-2      	; 0x1a4 <__stop_program>
